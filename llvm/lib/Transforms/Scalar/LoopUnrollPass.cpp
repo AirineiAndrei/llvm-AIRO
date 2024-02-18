@@ -10,6 +10,7 @@
 // been canonicalized by the -indvars pass, allowing it to determine the trip
 // counts of loops easily.
 //===----------------------------------------------------------------------===//
+#include "airo.hpp"
 
 #include "llvm/Transforms/Scalar/LoopUnrollPass.h"
 #include "llvm/ADT/DenseMap.h"
@@ -894,7 +895,6 @@ shouldPartialUnroll(const unsigned LoopSize, const unsigned TripCount,
 // FIXME: This function is used by LoopUnroll and LoopUnrollAndJam, but consumes
 // many LoopUnroll-specific options. The shared functionality should be
 // refactored into it own function.
-#include <iostream>
 bool llvm::computeUnrollCount(
     Loop *L, const TargetTransformInfo &TTI, DominatorTree &DT, LoopInfo *LI,
     AssumptionCache *AC, ScalarEvolution &SE,
@@ -904,7 +904,6 @@ bool llvm::computeUnrollCount(
     TargetTransformInfo::UnrollingPreferences &UP,
     TargetTransformInfo::PeelingPreferences &PP, bool &UseUpperBound) {
 
-  std::cout << "Hello from llvm unroll pass!" << std::endl;
   unsigned LoopSize = UCE.getRolledLoopSize();
 
   const bool UserUnrollCount = UnrollCount.getNumOccurrences() > 0;
@@ -929,13 +928,13 @@ bool llvm::computeUnrollCount(
     return true;
   }
   //set 0 priority to be taken from decision maker
-  //begin airo
-
-  UP.Count = 100;
-  UP.Force = true;
-  return true; // explicit unroll
-
-  //end airo
+  std::optional<int> UnrollFactor = airo::unroll_hook();
+  if(UnrollFactor)
+  {
+    UP.Count = UnrollFactor.value();
+    UP.Force = true;
+    return true; // explicit unroll
+  }
 
   // Check for explicit Count.
   // 1st priority is unroll count set by "unroll-count" option.

@@ -97,6 +97,10 @@ add_llvm_component_library(LLVMScalarOpts
   InstCombine
   Support
   TransformUtils
+
+  LINK_LIBS
+  airo
   )
 
-  message(STATUS "IN SCALAR cmake")
+include_directories(${AIRO_INCLUDE})
+set_property(GLOBAL APPEND PROPERTY LLVM_EXPORTS airo)

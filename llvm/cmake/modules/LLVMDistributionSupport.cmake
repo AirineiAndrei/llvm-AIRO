@@ -196,8 +196,8 @@ function(install_distribution_exports project)
   if(NOT LLVM_DISTRIBUTIONS)
     get_property(has_exports GLOBAL PROPERTY ${project_upper}_HAS_EXPORTS)
     if(has_exports)
-      install(EXPORT ${project}${suffix} DESTINATION "${destination}"
-              COMPONENT ${prefix}cmake-exports)
+      # install(EXPORT ${project}${suffix} DESTINATION "${destination}"#TODO aairinei fix install
+              # COMPONENT ${prefix}cmake-exports)
     endif()
   else()
     foreach(distribution ${LLVM_DISTRIBUTIONS})
@@ -206,8 +206,8 @@ function(install_distribution_exports project)
       if(has_exports)
         string(TOLOWER "${distribution}" distribution_lower)
         set(target ${prefix}${distribution_lower}-cmake-exports)
-        install(EXPORT ${project}${distribution}${suffix} DESTINATION "${destination}"
-                COMPONENT ${target})
+        # install(EXPORT ${project}${distribution}${suffix} DESTINATION "${destination}"
+                # COMPONENT ${target})
         if(NOT LLVM_ENABLE_IDE)
           add_custom_target(${target})
           add_llvm_install_targets(install-${target} COMPONENT ${target})

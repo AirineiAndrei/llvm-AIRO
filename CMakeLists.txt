@@ -10,5 +10,8 @@ set(CMAKE_BUILD_TYPE Release)
 # cherry pick what is needed
 set(LLVM_TARGETS_TO_BUILD X86)
 set(LLVM_ENABLE_PROJECTS clang)
+set(LLVM_INCLUDE_TESTS OFF)
+set(LLVM_INCLUDE_EXAMPLES OFF)
+set(CLANG_INCLUDE_TESTS OFF)
 
 add_subdirectory(llvm)
