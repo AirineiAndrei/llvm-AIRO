@@ -894,6 +894,7 @@ shouldPartialUnroll(const unsigned LoopSize, const unsigned TripCount,
 // FIXME: This function is used by LoopUnroll and LoopUnrollAndJam, but consumes
 // many LoopUnroll-specific options. The shared functionality should be
 // refactored into it own function.
+#include <iostream>
 bool llvm::computeUnrollCount(
     Loop *L, const TargetTransformInfo &TTI, DominatorTree &DT, LoopInfo *LI,
     AssumptionCache *AC, ScalarEvolution &SE,
@@ -903,6 +904,7 @@ bool llvm::computeUnrollCount(
     TargetTransformInfo::UnrollingPreferences &UP,
     TargetTransformInfo::PeelingPreferences &PP, bool &UseUpperBound) {
 
+  std::cout << "Hello from llvm unroll pass!" << std::endl;
   unsigned LoopSize = UCE.getRolledLoopSize();
 
   const bool UserUnrollCount = UnrollCount.getNumOccurrences() > 0;
@@ -926,6 +928,15 @@ bool llvm::computeUnrollCount(
     UP.Runtime = false;
     return true;
   }
+  //set 0 priority to be taken from decision maker
+  //begin airo
+
+  UP.Count = 100;
+  UP.Force = true;
+  return true; // explicit unroll
+
+  //end airo
+
   // Check for explicit Count.
   // 1st priority is unroll count set by "unroll-count" option.
   // 2nd priority is unroll count set by pragma.

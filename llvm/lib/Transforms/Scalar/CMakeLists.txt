@@ -98,3 +98,5 @@ add_llvm_component_library(LLVMScalarOpts
   Support
   TransformUtils
   )
+
+  message(STATUS "IN SCALAR cmake")
