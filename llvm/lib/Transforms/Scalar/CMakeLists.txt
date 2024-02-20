@@ -102,5 +102,6 @@ add_llvm_component_library(LLVMScalarOpts
   airo
   )
 
+add_dependencies(airo LLVMAnalysis) # wait for required headers to be generated
 include_directories(${AIRO_INCLUDE})
 set_property(GLOBAL APPEND PROPERTY LLVM_EXPORTS airo)

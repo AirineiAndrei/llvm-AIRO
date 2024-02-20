@@ -928,7 +928,7 @@ bool llvm::computeUnrollCount(
     return true;
   }
   //set 0 priority to be taken from decision maker
-  std::optional<int> UnrollFactor = airo::unroll_hook();
+  std::optional<int> UnrollFactor = airo::unroll_hook(L);
   if(UnrollFactor)
   {
     UP.Count = UnrollFactor.value();
