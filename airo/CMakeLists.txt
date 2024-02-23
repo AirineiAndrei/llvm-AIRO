@@ -17,6 +17,7 @@ message("llvm ${LLVM_INCLUDE} ${LLVM_INCLUDE_GEN}")
 add_library(
     ${TARGET} STATIC
     src/airo.cpp
+    src/ipc.cpp
 )
 target_include_directories(
     ${TARGET}
