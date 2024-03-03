@@ -5,16 +5,9 @@
 namespace airo{
     std::optional<int> unroll_hook(llvm::Loop *L)
     {
-        std::unique_ptr<IPC> ipc;
-        try
-        {
-            ipc = std::make_unique<IPC>();
-        }catch(...)
-        {
-            std::cout<<"error on pipe"<<std::endl;
-        }
-        int ans = ipc->send("Hello from clang");
-        std::cout << "Loop depth " << L->getLoopDepth() << std::endl;
+        std::cout << "Unroll hook" << std::endl;
+        // TODO: seriaaalize loop
+        auto ans = IPC::getInstance()->send("looooooooooooooop");
         return ans;
     }
 }
