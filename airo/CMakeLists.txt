@@ -10,6 +10,9 @@ set(LLVM_INCLUDE_GEN "${CMAKE_BINARY_DIR}/llvm/include")
 set(AIRO_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(AIRO_INCLUDE "${AIRO_INCLUDE}" PARENT_SCOPE)
 set(AIRO_BINARY "${CMAKE_CURRENT_BINARY_DIR}")
+
+set(EXTERN_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/extern")
+
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 message("llvm ${LLVM_INCLUDE} ${LLVM_INCLUDE_GEN}")
@@ -25,6 +28,7 @@ target_include_directories(
     ${AIRO_INCLUDE}
     ${LLVM_INCLUDE}
     ${LLVM_INCLUDE_GEN}
+    ${EXTERN_INCLUDE}
 )
 
 # maybe fix install
